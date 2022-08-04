@@ -97,9 +97,9 @@ class NetworkImageNet(nn.Module):
     self.conv0 = nn.Conv2d(3, 96, kernel_size=3, stride=2, padding=0, bias=False)
     self.conv0_bn = nn.BatchNorm2d(96, eps=1e-3)
     self.stem1 = Cell(genotype, 96, 96, C // 4, True, None)
-    self.stem2 = Cell(genotype, 96, C * self.stem1.multiplier // 4, C // 2, True, True)
+    self.stem2 = Cell(genotype, 96, C // 4 * self.stem1.multiplier, C // 2, True, True)
 
-    C_prev_prev, C_prev, C_curr = C * self.stem1.multiplier // 4, C * self.stem2.multiplier // 2, C
+    C_prev_prev, C_prev, C_curr = C // 4 * self.stem1.multiplier , C // 2 * self.stem2.multiplier, C
 
     self.cells = nn.ModuleList()
     reduction_prev = True
